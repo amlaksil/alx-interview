@@ -22,7 +22,7 @@ def pascal_triangle(n):
     Example:
         >>> pascal_triangle(5)
         [[1], [1, 1], [1, 2, 1], [1, 3, 3, 1], [1, 4, 6, 4, 1]]
-    ```
+```
 
 ## Usage
 You can use the pascal_triangle function in your Python projects to generate Pascal's triangle. Here's an example:
@@ -43,19 +43,20 @@ Output:
 [1, 5, 10, 10, 5, 1]
 [1, 6, 15, 20, 15, 6, 1]
 ```
-Installation
+
+## Installation
 To use the pascal_triangle function in your project, you can follow these steps:
 1. Clone this GitHub repository
 ```
 $ git clone https://github.com/amlaksil/alx-interview.git/ 0x00-pascal_triangle
 ```
 
-2. Navigate to project directory
+2. Navigate to the project directory
 ```
-$ cd 0x00-pascal_triangle 
+$ cd 0x00-pascal_triangle
 ```
 
-3. Import the pascal_trianle function in your python code
+3. Import the pascal_trianle function in your Python code
 ```
 from 0-pascal_triangle import pascal_triangle
 ```
@@ -63,4 +64,4 @@ from 0-pascal_triangle import pascal_triangle
 4. Call the pascal_triangle function with the desired number of rows to generate Pascal's triangle.
 
 ## Contributing
-Contributions are welcome! If you find any issues or have suggestions for improvement, please open an issue or submit a pull request.
+Contributions are welcome! If you find any issues or have suggestions for improvement, please open an issue or submit a pull request.                                                                                                                                  
