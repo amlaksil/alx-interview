@@ -32,6 +32,15 @@ def minOperations(n):
     operations = 0
     factor = 2
 
+    # Check if n is prime
+    is_prime = True
+    for i in range(2, int(math.sqrt(n)) + 1):
+        if n % i == 0:
+            is_prime = False
+            break
+    if is_prime:
+        return n
+
     while factor <= math.isqrt(n):
         if n % factor == 0:
             operations += factor
