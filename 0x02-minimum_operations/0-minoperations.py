@@ -26,7 +26,7 @@ def minOperations(n):
     12
     """
 
-    if n == 1:
+    if n <= 1:
         return 0
 
     operations = 0
