@@ -13,7 +13,7 @@ The `0-stats` is a Python module that reads stdin line by line and extracts stat
 
 1. Ensure that you have Python installed on your system.
 
-2. Save the log file you want to analyze in the same directory as the module file (`log_analyzer.py`).
+2. Save the log file you want to analyze in the same directory as the module file (`0-stats.py`).
 
 3. Open a terminal or command prompt and navigate to the directory containing the module file and the log file.
 
@@ -62,5 +62,4 @@ No additional dependencies are required.
 
 ## Author
 
-The Log File Analyzer module is developed and maintained by Silamlak Desye.
-```
+The module is developed and maintained by Silamlak Desye.
