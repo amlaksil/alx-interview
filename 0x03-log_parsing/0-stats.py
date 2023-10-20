@@ -2,7 +2,8 @@
 """
 Module: 0-stats
 
-This module reads stdin line by line and computes matrics.
+This module reads stdin line by line and extracts statistics such as the
+total file size and the count of different HTTP status codes.
 """
 import re
 import sys
@@ -25,14 +26,20 @@ try:
         line = line.strip()  # Remove leading/trailing whitespace
         line_number += 1
         match = re.match(pattern, line)
+        list_t = line.split()
         if not match:
+            if len(list_t) > 2 and list_t[-2].isdigit():
+                stat_code = int(list_t[-2])
+                if stat_code in dict_t:
+                    dict_t[stat_code] += 1
+            if len(list_t) > 2 and list_t[-1].isdigit():
+                file_size += int(list_t[-1])
             continue
         else:
-            list_t = line.split()
-            stat_code = int(list_t[7])
+            stat_code = int(list_t[-2])
             if stat_code in dict_t:
                 dict_t[stat_code] += 1
-            file_size += int(list_t[8])
+            file_size += int(list_t[-1])
         if line_number == 10:
             print(f"File size: {file_size}")
             for key, value in sorted(dict_t.items()):
@@ -40,6 +47,8 @@ try:
                     print(f'{key}: {value}')
             line_number = 0
 except KeyboardInterrupt:
+    pass
+finally:
     print(f"File size: {file_size}")
     for key, value in sorted(dict_t.items()):
         if value != 0:
