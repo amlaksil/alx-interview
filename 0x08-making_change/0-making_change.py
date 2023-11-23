@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-
 """
 This module contains a function called `makeChange` that calculates
 the minimum number of coins needed to make a specific total using
@@ -30,22 +29,26 @@ def makeChange(coins, total):
         >>> makeChange(coins, total)
         2
     """
-    # Store the minimum number of coins needed for each amount from 0 to total
+
+    # Check if the total is non-positive
     if total <= 0:
         return 0
+
+    # Sort the coins in descending order
     coins.sort(reverse=True)
-    min_coins = [float('inf')] * (total + 1)
-    min_coins[0] = 0
 
-    for i in range(1, total + 1):
-        for coin in coins:
-            # Check if using the current coin leads to a smaller number ofcoins
-            if coin <= i:
-                min_coins[i] = min(min_coins[i], min_coins[i - coin] + 1)
-            else:
-                break
+    # Initialize a variable to count the number of coins used
+    count = 0
 
-    if min_coins[total] == float('inf'):
-        # Cannot reach the exact total with the given coins
+    for coin in coins:
+        if total >= coin:
+            # Calculate the number of coins of the current denomination
+            num_coins = total // coin
+            count += num_coins
+            total -= num_coins * coin
+
+    # If the total amount is not zero, it cannot be met by any number of coins
+    if total != 0:
         return -1
-    return min_coins[total]
+
+    return count
