@@ -31,6 +31,9 @@ def makeChange(coins, total):
         2
     """
     # Store the minimum number of coins needed for each amount from 0 to total
+    if total <= 0:
+        return 0
+    coins.sort(reverse=True)
     min_coins = [float('inf')] * (total + 1)
     min_coins[0] = 0
 
@@ -39,6 +42,8 @@ def makeChange(coins, total):
             # Check if using the current coin leads to a smaller number ofcoins
             if coin <= i:
                 min_coins[i] = min(min_coins[i], min_coins[i - coin] + 1)
+            else:
+                break
 
     if min_coins[total] == float('inf'):
         # Cannot reach the exact total with the given coins
