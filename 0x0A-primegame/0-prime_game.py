@@ -1,57 +1,108 @@
 #!/usr/bin/python3
+
 """
-This module contains functions needed to determine the winner of the game.
-Description for the game: Maria and Ben are playing a game. Given a set of
-consecutive integers starting from 1 up to and including n, they take turns
-choosing a prime number from the set and removing that number and its multiples
-from the set. The player that cannot make a move loses the game. Assuming Maria
-always goes first and both players play optimally.
+This module contains four function which will help us to
+determine the winner of the game. Maria and Ben are playing a game.
+Given a set of consecutive integers starting from 1 up to and
+including n, they take turns choosing a prime number from the set and
+removing that number and its multiples from the set. The player that
+cannot make a move loses the game.
 """
 
 
-def is_prime(num):
+def find_prime_num(numbers):
     """
-    Check if a number is prime.
+    Finds the smallest prime number of a given list.
 
     Args:
-        num (int): The number to check.
+            numbers (list): An array of integers.
 
     Returns:
-        bool: True if the number is prime, False otherwise.
+            The smallest prime number or -1 if no prime number exist
+            on the list.
     """
-    if num < 2:
-        return False
-    for i in range(2, num + 1):
-        if num % i == 0:
-            return False
-    return True
+    for num in numbers:
+        if num != 1:
+            for i in range(2, int(num**0.5) + 1):
+                if num % i == 0:
+                    break
+            return num
+    return -1
 
 
-def isWinner(_, nums):
+def find_multiple_of_num(number, numbers):
     """
-    Determine the winner of the prime game for each round.
+    Finds a multiples of a given number.
 
     Args:
-        _ (int): The number of rounds. (Unused)
-        nums (list): A list of integers representing n for each round.
+            number (int): Integer number
 
     Returns:
-        str or None: The name of the player (Maria or Ben) that won the most
-        rounds, or None if the winner cannot be determined.
+            List (list): list of multiples of given number.
     """
-    maria_wins = 0
-    ben_wins = 0
+    multiples = []
+    for i in numbers:
+        if i % number == 0:
+            multiples.append(i)
+    return multiples
 
-    for n in nums:
-        primes = [num for num in range(2, n + 1) if is_prime(num)]
 
-        if len(primes) % 2 == 0:
-            ben_wins += 1
-        else:
-            maria_wins += 1
+def check_move(numbers):
+    """
+    Checks if the player can make a move.
 
-    if maria_wins > ben_wins:
+    Args:
+        numbers (list): An array of integers
+
+    Returns:
+        List (list): If they can make a move else None. If prime
+        number is not in the list it means no movement.
+    """
+    choice = find_prime_num(numbers)
+    if choice == -1:
+        return None
+    elements_to_remove = find_multiple_of_num(choice, numbers)
+    numbers = [x for x in numbers if x not in elements_to_remove]
+    return numbers
+
+
+def isWinner(x, nums):
+    """
+    Determines the winner of the game after x rounds.
+
+    Args:
+            x (int): The number of rounds of the game.
+            nums (list): An array of integer.
+
+    Returns:
+            The name of the player that won the most rounds.
+            If the winner cannot be determined it returns None.
+    """
+    if not nums or x < 1:
+        return None
+
+    maria_win = 0
+    ben_win = 0
+    for round in nums:
+        numbers = list(range(1, round + 1))
+        maria_turn = True
+        while True:
+            if maria_turn:
+                moves = check_move(numbers)
+                if moves is None:
+                    ben_win += 1
+                    break
+                numbers = moves
+            else:
+                moves = check_move(numbers)
+                if moves is None:
+                    maria_win += 1
+                    break
+                numbers = moves
+            maria_turn = not maria_turn
+
+    if maria_win > ben_win:
         return "Maria"
-    elif ben_wins > maria_wins:
+    elif maria_win < ben_win:
         return "Ben"
     return None
